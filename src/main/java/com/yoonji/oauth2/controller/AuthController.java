@@ -1,5 +1,6 @@
 package com.yoonji.oauth2.controller;
 
+import com.yoonji.oauth2.docs.AuthControllerDocs;
 import com.yoonji.oauth2.dto.request.SignupRequest;
 import com.yoonji.oauth2.dto.response.CommonResponse;
 import com.yoonji.oauth2.dto.response.UserResponse;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthControllerDocs {
 
     private final AuthService authService;
 

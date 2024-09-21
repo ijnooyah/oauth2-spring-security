@@ -13,6 +13,9 @@ spring:
   profiles:
      include: oauth
 
+springdoc:
+  show-oauth2-endpoints: true
+
 logging.level:
   org.hibernate.SQL: debug
   org.springframework.security: debug
