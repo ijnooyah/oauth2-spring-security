@@ -1,6 +1,7 @@
 package com.yoonji.oauth2.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yoonji.oauth2.dto.response.CommonResponse;
 import com.yoonji.oauth2.dto.response.UserResponse;
 import com.yoonji.oauth2.entity.User;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
@@ -24,14 +25,21 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
         ObjectMapper mapper = new ObjectMapper();
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setCharacterEncoding("UTF-8");
-        mapper.writeValue(response.getWriter(), UserResponse.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .nickname(userPrincipal.getNickname())
                 .email(userPrincipal.getEmail())
                 .role(userPrincipal.getRole().name())
-                .build());
+                .build();
+
+        CommonResponse<UserResponse> commonResponse = CommonResponse.<UserResponse>builder()
+                .status(HttpStatus.OK)
+                .body(userResponse)
+                .build();
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+        mapper.writeValue(response.getWriter(), commonResponse);
 
         clearAuthenticationAttributes(request);
     }

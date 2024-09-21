@@ -2,11 +2,12 @@ package com.yoonji.oauth2.controller;
 
 
 
+import com.yoonji.oauth2.dto.response.CommonResponse;
 import com.yoonji.oauth2.dto.response.UserResponse;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
 import com.yoonji.oauth2.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("")
-    public ResponseEntity<UserResponse> getUser(@AuthenticationPrincipal UserPrincipal userPrincipal) {
-        UserResponse userResponse = userService.getUser(userPrincipal);
-        return ResponseEntity.ok(userResponse);
+    public CommonResponse<UserResponse> getUser(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return new CommonResponse<>(HttpStatus.OK, userService.getUser(userPrincipal));
     }
 
 }
