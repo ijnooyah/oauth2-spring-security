@@ -4,6 +4,8 @@ package com.yoonji.oauth2.service;
 
 import com.yoonji.oauth2.dto.response.UserResponse;
 import com.yoonji.oauth2.entity.User;
+import com.yoonji.oauth2.exception.CustomException;
+import com.yoonji.oauth2.exception.ErrorCode;
 import com.yoonji.oauth2.repository.UserRepository;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponse getUser(UserPrincipal userPrincipal) {
-        User findUser = userRepository.findByEmail(userPrincipal.getEmail()).orElseThrow(() -> new RuntimeException("찾을 수 없음"));
+        User findUser = userRepository.findByEmail(userPrincipal.getEmail()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return UserResponse.builder()
                 .nickname(findUser.getNickname())
                 .email(findUser.getEmail())

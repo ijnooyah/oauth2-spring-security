@@ -3,7 +3,6 @@ package com.yoonji.oauth2.security.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yoonji.oauth2.dto.response.CommonResponse;
 import com.yoonji.oauth2.dto.response.UserResponse;
-import com.yoonji.oauth2.entity.User;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

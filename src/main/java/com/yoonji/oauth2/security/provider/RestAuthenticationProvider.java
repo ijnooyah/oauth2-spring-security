@@ -1,5 +1,7 @@
 package com.yoonji.oauth2.security.provider;
 
+import com.yoonji.oauth2.exception.CustomException;
+import com.yoonji.oauth2.exception.ErrorCode;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
 import com.yoonji.oauth2.security.service.CustomUserDetailsService;
 import com.yoonji.oauth2.security.token.RestAuthenticationToken;
@@ -25,7 +27,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         UserPrincipal customUserPrincipal = (UserPrincipal) customUserDetailsService.loadUserByUsername(loginId);
 
         if(!passwordEncoder.matches(password, customUserPrincipal.getPassword())){
-            throw new BadCredentialsException("Invalid password");
+            throw new BadCredentialsException("Invalid credentials", new CustomException(ErrorCode.INVALID_CREDENTIALS));
         }
 
         return new RestAuthenticationToken(customUserPrincipal.getAuthorities(), customUserPrincipal, null);

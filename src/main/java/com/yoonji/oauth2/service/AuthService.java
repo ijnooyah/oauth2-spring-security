@@ -1,20 +1,17 @@
 package com.yoonji.oauth2.service;
 
-import com.yoonji.oauth2.dto.request.LoginRequest;
 import com.yoonji.oauth2.dto.request.SignupRequest;
 import com.yoonji.oauth2.dto.response.UserResponse;
 import com.yoonji.oauth2.entity.ProviderType;
 import com.yoonji.oauth2.entity.RoleType;
 import com.yoonji.oauth2.entity.User;
+import com.yoonji.oauth2.exception.CustomException;
+import com.yoonji.oauth2.exception.ErrorCode;
 import com.yoonji.oauth2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +44,7 @@ public class AuthService {
 
     private void checkDuplicateEmail(String email) {
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("이미 사용중인 이메일");
+            throw new CustomException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
     }
 
