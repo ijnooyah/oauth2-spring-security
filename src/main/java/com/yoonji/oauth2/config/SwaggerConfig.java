@@ -1,5 +1,6 @@
 package com.yoonji.oauth2.config;
 
+import com.yoonji.oauth2.exception.ErrorCode;
 import com.yoonji.oauth2.security.filter.RestAuthenticationFilter;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
@@ -64,9 +65,9 @@ public class SwaggerConfig {
                     operation.requestBody(requestBody);
                     ApiResponses apiResponses = new ApiResponses();
                     apiResponses.addApiResponse(String.valueOf(HttpStatus.OK.value()),
-                            new ApiResponse().description(HttpStatus.OK.getReasonPhrase()));
-                    apiResponses.addApiResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                            new ApiResponse().description(HttpStatus.BAD_REQUEST.getReasonPhrase()));
+                            new ApiResponse().description("로그인 성공"));
+                    apiResponses.addApiResponse(String.valueOf(HttpStatus.UNAUTHORIZED.value()),
+                            new ApiResponse().description("인증 실패"));
                     operation.responses(apiResponses);
                     operation.addTagsItem("email-login-endpoint");
                     PathItem pathItem = new PathItem().post(operation);

@@ -14,7 +14,8 @@ spring:
      include: oauth
 
 springdoc:
-  show-oauth2-endpoints: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
 
 logging.level:
   org.hibernate.SQL: debug

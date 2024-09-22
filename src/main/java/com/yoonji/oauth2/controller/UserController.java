@@ -2,6 +2,7 @@ package com.yoonji.oauth2.controller;
 
 
 
+import com.yoonji.oauth2.docs.UserControllerDocs;
 import com.yoonji.oauth2.dto.response.CommonResponse;
 import com.yoonji.oauth2.dto.response.UserResponse;
 import com.yoonji.oauth2.security.principal.UserPrincipal;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerDocs {
 
     private final UserService userService;
 
